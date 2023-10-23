@@ -51,7 +51,7 @@ Vagrant.configure("2") do |config|
   #
   config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
+      # vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
     vb.memory = "4096"
@@ -60,6 +60,12 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you are using for more
   # information on available options.
 
+  config.vm.boot_timeout = 1800 # 30 minutes
+  #config.vm.guest = "windows"
+  #config.vm.communicator = 'winrm'  
+  #config.winrm.timeout =   1800 # 30 minutes
+  #config.winrm.retry_limit = 10
+  
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
@@ -71,7 +77,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "install-basic-software.sh", run: "once"
   config.vm.provision "shell", path: "install-docker-engine.sh", run: "once"
   config.vm.provision "shell", path: "configure-docker-rootless.sh", run: "once", privileged: false
-  config.vm.provision "shell", path: "install-microk8s.ssh", run: "once"
+  config.vm.provision "shell", path: "install-ejbca.sh", run: "once", privileged: false
   config.vm.provision "shell", path: "finalizing.sh", run: "once"
   
   
